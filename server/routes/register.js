@@ -14,11 +14,10 @@ async function register(req, res) {
   try {
     //1.desturcture the body(name,email,password)
     const { user_name, user_email, user_password } = req.body;
-
     //2.check users
     await checkUserByName(user_name).then(async (data) => {
       if (data) {
-        res.send("user  exist");
+        res.status(409).json("users exists");
       } else {
         //3.bcrypt the password
         const newPassword = await hashPassword(user_password);
@@ -39,7 +38,7 @@ async function register(req, res) {
     });
   } catch (err) {
     console.log(err);
-    res.status(500).send("server error");
+    res.status(500).json("server error");
   }
 }
 

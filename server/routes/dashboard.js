@@ -9,7 +9,7 @@ router.get('/',verifyInfo,async(req,res)=>{
 
    let currentUserId= await req.user
    let {user_name,user_email}= await getUserById(currentUserId)
-   res.status(200).json(`${user_name},${user_email}`)
+  res.status(200).json({ user_name: user_name, user_email: user_email });
   } catch (error) {
         res.status(500).json({error: error.message})
   }

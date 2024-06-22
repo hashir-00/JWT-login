@@ -6,17 +6,17 @@ module.exports = function(req, res, next) {
     }
   
     if (req.path === "/register") {
-      console.log(!user_email.length);
+      console.log(!user_email.length,"sd");
       if (![user_email, user_name, user_password].every(Boolean)) {
-        return res.json("Missing Credentials");
+        return res.status(401).json("Missing Credentials");
       } else if (!validEmail(user_email)) {
-        return res.json("Invalid Email");
+        return res.status(401).json("Invalid Email");
       }
     } else if (req.path === "/login") {
       if (![user_email, user_password].every(Boolean)) {
-        return res.json("Missing Credentials");
+        return res.status(401).json("Missing Credentials");
       } else if (!validEmail(user_email)) {
-        return res.json("Invalid Email");
+        return res.status(401).json("Invalid Email");
       }
     }
   

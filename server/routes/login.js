@@ -16,7 +16,7 @@ async function login(req, res) {
     //check if user exist
     const user = await checkUsersByEmail(user_email);
     if (!user) {
-      res.send("user not exist");
+      res.status(404).json("user not exist");
     } else {
       const storedPassword = await getUsersPasswordByEmail(user_email);
 
@@ -30,7 +30,7 @@ async function login(req, res) {
         const token = jwtGen(new_user.user_id);
         res.status(200).json({ status: "user logged", token: token });
       } else {
-        res.status(401).send("password or Email incorrect");
+        res.status(401).json("password or Email incorrect");
       }
     }
   } catch (err) {

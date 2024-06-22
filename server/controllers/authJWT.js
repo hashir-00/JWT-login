@@ -3,15 +3,17 @@ require("dotenv").config();
 
 module.exports = (req, res, next) => {
   try {
-    const jwtoken = req.header("token");
+    const jwtoken = req.headers["token"];
     if (!jwtoken) {
-      return res.status(403).send("Not Authorised");
+      return res.status(403).json("Not Authorised");
     }
-    const payload = jwt.verify(jwtoken, process.env.secret);
+    jwtokencleared = jwtoken.replace(/"/g, '');
+    const payload = jwt.verify(jwtokencleared, process.env.secret);
     req.user = payload.user;
+
     next();
   } catch (error) {
     console.log(error);
-    res.status(403).send("No authorisation");
+    res.status(403).json("No authorisation");
   }
 };
