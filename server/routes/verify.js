@@ -10,6 +10,6 @@ async function verification(req, res) {
   }
 }
 
-router.get("/is-verify", verify, verification);
+router.post("/is-verify", verify, verification);
 
 module.exports = router;
